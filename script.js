@@ -330,6 +330,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /**
      * Streak Date Verification and Incremental Automation Subsystem Engine
+     * (تم تعديل هذا الجزء فقط لتصفير العدادات تلقائياً عند استشعار يوم جديد)
      */
     function verifyAndRenewStreakMetrics() {
         const currentDateStampString = new Date().toDateString();
@@ -340,6 +341,12 @@ document.addEventListener("DOMContentLoaded", () => {
             const parsedCurrentDate = new Date(currentDateStampString);
             const differenceInTimeDuration = parsedCurrentDate - parsedPreviousDate;
             const singleDayIntervalMilliseconds = 1000 * 60 * 60 * 24;
+
+            // [تعديل] إذا تم استشعار يوم جديد، قم بتصفير عدادات الأذكار المنجزة فوراً
+            if (absoluteLastSavedStamp !== currentDateStampString) {
+                localStorage.removeItem("azkar_counters_2026");
+                stateCounters = {}; // صيانة الحافظة الحالية في الذاكرة لتحديث الواجهة
+            }
 
             if (differenceInTimeDuration === singleDayIntervalMilliseconds) {
                 trackingStreak++;
