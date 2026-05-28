@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>أذكاري | المنصة الإسلامية الفاخرة</title>
+    
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#10b981">
+    <link rel="apple-touch-icon" href="icon.png">
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700&family=Tajawal:wght@400;500;700&family=IBM+Plex+Sans+Arabic:wght@300;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <div id="splash-screen" class="splash-screen">
+        <div class="splash-content">
+            <div class="splash-logo">
+                <i class="fa-solid fa-mosque"></i>
+            </div>
+            <h1 class="splash-title">أذكاري</h1>
+            <p class="splash-subtitle">ألا بذكر الله تطمئن القلوب</p>
+            <div class="loader-bar"><span></span></div>
+        </div>
+    </div>
+
+    <div class="ambient-glow"></div>
+    <div class="particles" id="particles"></div>
+
+    <header class="main-header">
+        <div class="header-container">
+            <div class="logo-area">
+                <i class="fa-solid fa-kaaba gold-text"></i>
+                <span class="brand-name">أذكاري</span>
+            </div>
+            
+            <div class="search-bar-container">
+                <i class="fa-solid fa-magnifying-glass search-icon"></i>
+                <input type="text" id="search-input" placeholder="ابحث عن ذكر، آية أو تصنيف...">
+            </div>
+
+            <div class="header-stats">
+                <div class="stat-badge streak-badge" title="الأيام المتتالية">
+                    <i class="fa-solid fa-fire gold-text animate-pulse"></i>
+                    <span id="streak-count">1</span> يوم
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="dashboard-container">
+        
+        <section class="hero-section">
+            <div class="hero-overlay"></div>
+            <div class="hero-content">
+                <span class="hero-tag">الآية اليومية</span>
+                <h2 class="hero-quote" id="daily-quote">"وَاذْكُر رَّبَّكَ فِي نَفْسِكَ تَضَرُّعًا وَخِيفَةً وَدُونَ الْجَهْرِ مِنَ الْقَوْلِ بِالْغُدُوِّ وَالْآصَالِ"</h2>
+                <div class="global-progress-wrapper">
+                    <span class="progress-label">نسبة إنجاز أذكار اليوم</span>
+                    <div class="progress-bar-container">
+                        <div class="global-progress-bar" id="global-progress" style="width: 0%"></div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <nav class="category-tabs" id="category-tabs-container">
+            <button class="tab-btn active" data-category="all">
+                <i class="fa-solid fa-layer-group"></i> الكل
+            </button>
+            <button class="tab-btn" data-category="favorites">
+                <i class="fa-solid fa-star gold-text"></i> المفضلة
+            </button>
+        </nav>
+
+        <section class="azkar-grid" id="azkar-cards-container">
+            <div class="initial-loading">
+                <i class="fa-solid fa-circle-notch fa-spin"></i>
+                <p>جاري تحميل الأذكار المباركة...</p>
+            </div>
+        </section>
+
+    </main>
+
+    <nav class="mobile-navbar">
+        <button class="mobile-nav-btn active" id="mob-home-btn">
+            <i class="fa-solid fa-house"></i>
+            <span>الرئيسية</span>
+        </button>
+        <button class="mobile-nav-btn" id="mob-fav-btn">
+            <i class="fa-solid fa-star"></i>
+            <span>المفضلة</span>
+        </button>
+        <button class="mobile-nav-btn" id="mob-search-btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <span>البحث</span>
+        </button>
+    </nav>
+
+    <footer class="luxury-footer">
+        <p>© جميع الحقوق محفوظة لمنصة أذكاري 2026</p>
+    </footer>
+
+    <script src="script.js"></script>
+
+    <script>
+      if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js')
+            .then(reg => console.log('تم تسجيل الـ Service Worker بنجاح!'))
+            .catch(err => console.log('فشل تسجيل الـ Service Worker:', err));
+        });
+      }
+    </script>
+</body>
+</html>

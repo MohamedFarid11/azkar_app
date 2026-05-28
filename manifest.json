@@ -1,0 +1,17 @@
+{
+  "short_name": "أذكاري",
+  "name": "تطبيق أذكاري",
+  "icons": [
+    {
+      "src": "icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any maskable"
+    }
+  ],
+  "start_url": "/index.html",
+  "background_color": "#111827",
+  "display": "standalone",
+  "theme_color": "#10b981",
+  "orientation": "portrait"
+}
