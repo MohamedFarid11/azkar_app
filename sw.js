@@ -1,11 +1,11 @@
 const cacheName = 'azkary-cache-v1';
 const assets = [
-  '/',
-  '/index.html',
-  '/style.css',
-  '/script.js',
-  '/azkar.json',
-  '/icon.png'
+  './',
+  './index.html',
+  './style.css',
+  './script.js',
+  './azkar.json',
+  './icon.png'
 ];
 
 // تثبيت وتخزين الملفات محلياً

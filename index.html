@@ -111,7 +111,8 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          navigator.serviceWorker.register('/sw.js')
+          // تم تعديل المسار هنا ليعمل بنجاح داخل المجلد الفرعي لجيتهاب
+          navigator.serviceWorker.register('./sw.js')
             .then(reg => console.log('تم تسجيل الـ Service Worker بنجاح!'))
             .catch(err => console.log('فشل تسجيل الـ Service Worker:', err));
         });
