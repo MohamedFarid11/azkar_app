@@ -330,9 +330,13 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /**
      * Streak Date Verification and Incremental Automation Subsystem Engine
-     * (تم تعديل هذا الجزء فقط لتصفير العدادات تلقائياً عند استشعار يوم جديد)
+     * [تحديث] تم تعديل هذا الجزء فقط لتصفير العدادات فوراً وبشكل كامل عند فتح الصفحة أو عمل ريفريش
      */
     function verifyAndRenewStreakMetrics() {
+        // حذف مفتاح العدادات من ذاكرة المتصفح وتفريغ الحافظة الحالية لتصفير الواجهة مع كل ريفريش
+        localStorage.removeItem("azkar_counters_2026");
+        stateCounters = {}; 
+
         const currentDateStampString = new Date().toDateString();
         const absoluteLastSavedStamp = localStorage.getItem("azkar_last_interaction_date");
 
@@ -341,12 +345,6 @@ document.addEventListener("DOMContentLoaded", () => {
             const parsedCurrentDate = new Date(currentDateStampString);
             const differenceInTimeDuration = parsedCurrentDate - parsedPreviousDate;
             const singleDayIntervalMilliseconds = 1000 * 60 * 60 * 24;
-
-            // [تعديل] إذا تم استشعار يوم جديد، قم بتصفير عدادات الأذكار المنجزة فوراً
-            if (absoluteLastSavedStamp !== currentDateStampString) {
-                localStorage.removeItem("azkar_counters_2026");
-                stateCounters = {}; // صيانة الحافظة الحالية في الذاكرة لتحديث الواجهة
-            }
 
             if (differenceInTimeDuration === singleDayIntervalMilliseconds) {
                 trackingStreak++;
