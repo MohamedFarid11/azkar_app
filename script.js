@@ -4,9 +4,12 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
+    // [القاضية] حذف العدادات من الذاكرة فوراً بمجرد بدء تحميل الصفحة وقبل قراءة المتغيرات
+    localStorage.removeItem("azkar_counters_2026");
+
     // Application Global Memory State
     let databaseAzkar = [];
-    let stateCounters = JSON.parse(localStorage.getItem("azkar_counters_2026")) || {};
+    let stateCounters = {}; // تبدأ الحافظة فارغة ومصفرة تماماً إجبارياً مع كل ريفريش
     let favoriteList = JSON.parse(localStorage.getItem("azkar_favorites_2026")) || [];
     let trackingStreak = parseInt(localStorage.getItem("azkar_streak_2026")) || 1;
     let selectedActiveCategory = "all";
@@ -138,7 +141,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
         // Query Filter Matrix Pipeline Processing
         const processedFilteredSet = databaseAzkar.filter(item => {
-            // 1. التحقق من مطابقة القسم الحالي والقسم النشط المختار
             let belongsToCategory = false;
             if (selectedActiveCategory === "all") {
                 belongsToCategory = true;
@@ -148,7 +150,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 belongsToCategory = (item.category.trim() === selectedActiveCategory);
             }
 
-            // 2. التحقق من مطابقة البحث إن وجد
             const textSearchMatch = item.zekr.includes(searchFilterQuery) || 
                                     item.category.includes(searchFilterQuery) ||
                                     item.description.includes(searchFilterQuery);
@@ -330,13 +331,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     /**
      * Streak Date Verification and Incremental Automation Subsystem Engine
-     * [تحديث] تم تعديل هذا الجزء فقط لتصفير العدادات فوراً وبشكل كامل عند فتح الصفحة أو عمل ريفريش
      */
     function verifyAndRenewStreakMetrics() {
-        // حذف مفتاح العدادات من ذاكرة المتصفح وتفريغ الحافظة الحالية لتصفير الواجهة مع كل ريفريش
-        localStorage.removeItem("azkar_counters_2026");
-        stateCounters = {}; 
-
         const currentDateStampString = new Date().toDateString();
         const absoluteLastSavedStamp = localStorage.getItem("azkar_last_interaction_date");
 
@@ -350,7 +346,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 trackingStreak++;
                 localStorage.setItem("azkar_streak_2026", trackingStreak);
             } else if (differenceInTimeDuration > singleDayIntervalMilliseconds) {
-                trackingStreak = 1; // System Streak structural fallback reset action 
+                trackingStreak = 1; 
                 localStorage.setItem("azkar_streak_2026", trackingStreak);
             }
         }
