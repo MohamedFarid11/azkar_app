@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>أذكاري | المنصة الإسلامية الفاخرة</title>
+    <title>أذكاري | المنصة الإسلامية </title>
     
     <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#10b981">
+    <meta name="theme-color" content="#e3f2fd">
     <link rel="apple-touch-icon" href="icon.png">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -35,7 +35,7 @@
     <header class="main-header">
         <div class="header-container">
             <div class="logo-area">
-                <i class="fa-solid fa-kaaba gold-text"></i>
+                <i class="fa-solid fa-kaaba"></i>
                 <span class="brand-name">أذكاري</span>
             </div>
             
@@ -45,8 +45,12 @@
             </div>
 
             <div class="header-stats">
+                <button id="notification-btn" class="stat-badge notification-badge" title="تفعيل تذكير الأذكار">
+                    <i class="fa-solid fa-bell-slash"></i>
+                </button>
+
                 <div class="stat-badge streak-badge" title="الأيام المتتالية">
-                    <i class="fa-solid fa-fire gold-text animate-pulse"></i>
+                    <i class="fa-solid fa-fire animate-pulse"></i>
                     <span id="streak-count">1</span> يوم
                 </div>
             </div>
@@ -70,11 +74,8 @@
         </section>
 
         <nav class="category-tabs" id="category-tabs-container">
-            <button class="tab-btn active" data-category="all">
-                <i class="fa-solid fa-layer-group"></i> الكل
-            </button>
             <button class="tab-btn" data-category="favorites">
-                <i class="fa-solid fa-star gold-text"></i> المفضلة
+                <i class="fa-solid fa-star"></i> المفضلة
             </button>
         </nav>
 
@@ -103,7 +104,8 @@
     </nav>
 
     <footer class="luxury-footer">
-        <p>© جميع الحقوق محفوظة لمنصة أذكاري 2026</p>
+        <p class="footer-charity">هذا التطبيق صدقة جارية عني وعن أهلي</p>
+        <p class="footer-copyright">© جميع الحقوق محفوظة لمنصة أذكاري 2026</p>
     </footer>
 
     <script src="script.js"></script>
@@ -111,7 +113,6 @@
     <script>
       if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
-          // تم تعديل المسار هنا ليعمل بنجاح داخل المجلد الفرعي لجيتهاب
           navigator.serviceWorker.register('./sw.js')
             .then(reg => console.log('تم تسجيل الـ Service Worker بنجاح!'))
             .catch(err => console.log('فشل تسجيل الـ Service Worker:', err));

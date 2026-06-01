@@ -4,7 +4,7 @@
  */
 
 document.addEventListener("DOMContentLoaded", () => {
-    // [القاضية] حذف العدادات من الذاكرة فوراً بمجرد بدء تحميل الصفحة وقبل قراءة المتغيرات
+    // [ضربة البداية] حذف العدادات القديمة لضمان التصفير التلقائي الفوري مع كل ريفريش
     localStorage.removeItem("azkar_counters_2026");
 
     // Application Global Memory State
@@ -12,7 +12,7 @@ document.addEventListener("DOMContentLoaded", () => {
     let stateCounters = {}; // تبدأ الحافظة فارغة ومصفرة تماماً إجبارياً مع كل ريفريش
     let favoriteList = JSON.parse(localStorage.getItem("azkar_favorites_2026")) || [];
     let trackingStreak = parseInt(localStorage.getItem("azkar_streak_2026")) || 1;
-    let selectedActiveCategory = "all";
+    let selectedActiveCategory = ""; // تبدأ فارغة ليتم ملؤها بأول قسم متاح تلقائياً
     let searchFilterQuery = "";
 
     // DOM Elements Mapping References
@@ -22,6 +22,7 @@ document.addEventListener("DOMContentLoaded", () => {
     const globalSearchField = document.getElementById("search-input");
     const streakDisplayMetric = document.getElementById("streak-count");
     const dynamicGlobalProgress = document.getElementById("global-progress");
+    const notificationBtn = document.getElementById('notification-btn');
 
     // Splash Screen Initialization Engine Lifecycle
     setTimeout(() => {
@@ -34,6 +35,9 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize Particle Atmosphere Effect Canvas Core
     generateParticlesAtmosphere();
 
+    // Initialize Smart Notification Subsystem Core
+    initializeNotificationSystem();
+
     // Fetch the Complete Database from JSON Pipeline File
     fetch('azkar.json')
         .then(response => {
@@ -43,6 +47,17 @@ document.addEventListener("DOMContentLoaded", () => {
         .then(parsedData => {
             databaseAzkar = normalizeDataMatrix(parsedData);
             compileDynamicCategoriesTabs();
+            
+            // [تحديث ذكي] فتح الصفحة على أول قسم متاح فقط (مثل أذكار الصباح) لعدم دمج الأذكار
+            const uniqueCategories = [...new Set(databaseAzkar.map(item => item.category.trim()))];
+            if (uniqueCategories.length > 0) {
+                selectedActiveCategory = uniqueCategories[0];
+                setTimeout(() => {
+                    const firstTab = document.querySelector(`.tab-btn[data-category="${selectedActiveCategory}"]`);
+                    if (firstTab) firstTab.classList.add("active");
+                }, 50);
+            }
+
             renderEngineCardsDashboard();
             calculateGlobalProgressMetrics();
         })
@@ -102,16 +117,15 @@ document.addEventListener("DOMContentLoaded", () => {
             btn.addEventListener("click", (e) => {
                 const targetBtn = e.currentTarget;
                 
-                // Clear state structures across active targets
                 document.querySelectorAll(".tab-btn").forEach(t => t.classList.remove("active"));
                 document.querySelectorAll(".mobile-nav-btn").forEach(m => m.classList.remove("active"));
 
+                // الفصل والتحويل الفوري للقسم المطلوب بدون دمج
                 const assignedCategory = targetBtn.getAttribute("data-category") || 
-                    (targetBtn.id === "mob-fav-btn" ? "favorites" : "all");
+                    (targetBtn.id === "mob-fav-btn" ? "favorites" : selectedActiveCategory);
 
                 selectedActiveCategory = assignedCategory.trim();
 
-                // Set operational active syncs
                 const matchingTab = document.querySelector(`.tab-btn[data-category="${assignedCategory}"]`);
                 if(matchingTab) matchingTab.classList.add("active");
                 
@@ -142,11 +156,10 @@ document.addEventListener("DOMContentLoaded", () => {
         // Query Filter Matrix Pipeline Processing
         const processedFilteredSet = databaseAzkar.filter(item => {
             let belongsToCategory = false;
-            if (selectedActiveCategory === "all") {
-                belongsToCategory = true;
-            } else if (selectedActiveCategory === "favorites") {
+            if (selectedActiveCategory === "favorites") {
                 belongsToCategory = favoriteList.includes(item.id);
             } else {
+                // فلترة صريحة مطابقة للقسم النشط فقط
                 belongsToCategory = (item.category.trim() === selectedActiveCategory);
             }
 
@@ -171,8 +184,7 @@ document.addEventListener("DOMContentLoaded", () => {
             const isCompleted = currentCountState === 0;
             const isFavorite = favoriteList.includes(item.id);
 
-            // Compute SVG Angular Ring Parameters
-            const circumference = 2 * Math.PI * 10; // r=10 svg scaled viewbox params
+            const circumference = 2 * Math.PI * 10; 
             const percentageProgress = isCompleted ? 100 : ((item.initialTarget - currentCountState) / item.initialTarget) * 100;
             const strokeDashoffset = circumference - (percentageProgress / 100) * circumference;
 
@@ -210,7 +222,6 @@ document.addEventListener("DOMContentLoaded", () => {
                 </div>
             `;
 
-            // Operational Subsystems Integrations Framework
             bindCardInteractionEvents(cardNode, item, circumference);
             cardsGridContainer.appendChild(cardNode);
         });
@@ -224,18 +235,16 @@ document.addEventListener("DOMContentLoaded", () => {
         const favoriteActionButton = cardNode.querySelector(".favorite-trigger");
         const shareActionButton = cardNode.querySelector(".share-trigger");
 
-        // Decrement Counter Matrix Engine Event Listener Trigger
         counterTargetHitbox.addEventListener("click", (e) => {
             e.stopPropagation();
             let stateValue = stateCounters[item.id] !== undefined ? stateCounters[item.id] : item.initialTarget;
 
-            if (stateValue <= 0) return; // Prevent operational index underflow
+            if (stateValue <= 0) return; 
 
             stateValue--;
             stateCounters[item.id] = stateValue;
             localStorage.setItem("azkar_counters_2026", JSON.stringify(stateCounters));
 
-            // Dynamic Counter Component Repaint Processing Animation Frame Update
             const displayDigits = counterTargetHitbox.querySelector(".counter-digit-display");
             const physicalRing = counterTargetHitbox.querySelector(".ring-fill");
 
@@ -258,7 +267,6 @@ document.addEventListener("DOMContentLoaded", () => {
             }, 150);
         });
 
-        // Toggle Favorites Management Matrix Processing Pipeline
         favoriteActionButton.addEventListener("click", (e) => {
             e.stopPropagation();
             if (favoriteList.includes(item.id)) {
@@ -275,7 +283,6 @@ document.addEventListener("DOMContentLoaded", () => {
             localStorage.setItem("azkar_favorites_2026", JSON.stringify(favoriteList));
         });
 
-        // Web Native Share Integration Core Hook Module
         shareActionButton.addEventListener("click", (e) => {
             e.stopPropagation();
             const shareStringText = `"${item.zekr}"\nالتصنيف: ${item.category} - من منصة أذكاري`;
@@ -375,7 +382,6 @@ document.addEventListener("DOMContentLoaded", () => {
             specElement.style.opacity = Math.random() * 0.5 + 0.2;
             specElement.style.filter = "blur(1px)";
             
-            // Inject hardware accelerated movement animation transforms
             specElement.animate([
                 { transform: 'translateY(0px) translateX(0px)', opacity: 0.2 },
                 { transform: `translateY(-${Math.random() * 80 + 40}px) translateX(${Math.random() * 40 - 20}px)`, opacity: 0.6 },
@@ -387,6 +393,108 @@ document.addEventListener("DOMContentLoaded", () => {
             });
 
             particleOverlayTrack.appendChild(specElement);
+        }
+    }
+
+    /**
+     * Modular Notification Subsystem Handler Engine Lifecycle
+     */
+    function initializeNotificationSystem() {
+        if (!notificationBtn) return;
+
+        if ('Notification' in window) {
+            if (Notification.permission === 'granted') {
+                updateNotificationIcon(true);
+                setupSmartScheduledReminders();
+            }
+        }
+
+        notificationBtn.addEventListener('click', async () => {
+            if (!('Notification' in window)) {
+                alert('متصفحك لا يدعم الإشعارات.');
+                return;
+            }
+
+            if (Notification.permission === 'default') {
+                const permission = await Notification.requestPermission();
+                if (permission === 'granted') {
+                    updateNotificationIcon(true);
+                    showWelcomeNotification();
+                    setupSmartScheduledReminders();
+                }
+            } else if (Notification.permission === 'granted') {
+                showWelcomeNotification();
+            } else {
+                alert('برجاء تفعيل الإشعارات من إعدادات المتصفح أولاً.');
+            }
+        });
+    }
+
+    function updateNotificationIcon(isGranted) {
+        if (!notificationBtn) return;
+        const icon = notificationBtn.querySelector('i');
+        if (isGranted) {
+            icon.className = 'fa-solid fa-bell gold-text animate-pulse';
+            notificationBtn.setAttribute('title', 'التذكير التلقائي الذكي مفعّل');
+        } else {
+            icon.className = 'fa-solid fa-bell-slash';
+            notificationBtn.setAttribute('title', 'تفعيل تذكير الأذكار');
+        }
+    }
+
+    function showWelcomeNotification() {
+        navigator.serviceWorker.ready.then(registration => {
+            registration.showNotification('أذكاري المباركة', {
+                body: 'تم تفعيل التذكيرات الذكية بنجاح. سنذكرك بأذكار الصباح والمساء في مواقيتها المباركة 🤍',
+                icon: 'icon.png',
+                badge: 'icon.png',
+                dir: 'rtl'
+            });
+        });
+    }
+
+    function setupSmartScheduledReminders() {
+        checkAndSendTimedNotification();
+        setInterval(() => {
+            checkAndSendTimedNotification();
+        }, 3600000); 
+    }
+
+    function checkAndSendTimedNotification() {
+        if (Notification.permission !== 'granted') return;
+
+        const currentHour = new Date().getHours();
+        let title = "";
+        let message = "";
+        let tagId = "";
+
+        if (currentHour >= 5 && currentHour <= 9) {
+            title = "☀️ حان وقت أذكار الصباح";
+            message = "أشرقت الأرض بنور ربها، فلا تنسَ تحصين نفسك بأذكار الصباح المباركة.";
+            tagId = "morning-reminder-2026";
+        } else if (currentHour >= 16 && currentHour <= 19) {
+            title = "🌙 حان وقت أذكار المساء";
+            message = "اقترب غروب الشمس، حصّن روحك وبيتك بأذكار المساء الطاردة للهموم.";
+            tagId = "evening-reminder-2026";
+        } else {
+            if (currentHour === 13 || currentHour === 22) { 
+                title = "🤍 تذكير مبارك";
+                message = "اغتنم هذه اللحظة بذكر الله: لا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ الْعَلِيِّ الْعَظِيمِ.";
+                tagId = "general-reminder-2026";
+            }
+        }
+
+        if (title !== "") {
+            navigator.serviceWorker.ready.then(registration => {
+                registration.showNotification(title, {
+                    body: message,
+                    icon: 'icon.png',
+                    badge: 'icon.png',
+                    dir: 'rtl',
+                    tag: tagId,
+                    renotify: true
+                });
+            });
         }
     }
 });

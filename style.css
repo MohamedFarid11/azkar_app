@@ -1,16 +1,22 @@
 /* Core Configurations & Premium Theme Variables */
 :root {
-    --bg-main: #050505;
-    --bg-surface: #111111;
-    --bg-glass: rgba(17, 17, 17, 0.7);
-    --border-glass: rgba(212, 175, 55, 0.15);
-    --primary-deep: #1B4332;
-    --primary-emerald: #2D6A4F;
-    --primary-glow: #40916C;
-    --gold: #D4AF37;
-    --gold-glow: rgba(212, 175, 55, 0.4);
-    --text-white: #FFFFFF;
-    --text-muted: #A0AEC0;
+    /* [تحول شامل لهوية التطبيق بناءً على ستايل منصة سكينة المشرق والمريح] */
+    --bg-main: #e3f2fd; /* خلفية سماوية هادئة ومشرقة تفتح النفس ومريحة جداً للعين */
+    --bg-surface: #ffffff; /* أسطح بيضاء نقية للكروت والعناصر الأساسية */
+    --bg-glass: #ffffff; /* كروت بيضاء صريحة مريحة للقراءة الزاهية */
+    --bg-glass-completed: #e8f5e9; /* خلفية خضراء هادئة جداً ومريحة عند اكتمال الذكر */
+    --border-glass: #e0e0e0; /* حدود ناعمة غير فاقعة */
+    --border-completed: #a5d6a7; /* حدود خضراء مريحة عند الاكتمال */
+    
+    --primary-deep: #0288d1; /* أزرق سماوي عميق */
+    --primary-emerald: #2e7d32; /* أخضر عشبي مريح للعين */
+    --primary-glow: #4caf50; /* توهج أخضر ناعم */
+    --gold: #f57c00; /* برتقالي/ذهبي هادئ للتنبيهات */
+    --gold-glow: rgba(245, 124, 0, 0.15);
+    
+    --text-white: #1a237e; /* كسرنا الأبيض الداكن بنصوص كحلي عميقة ومريحة جداً للقراءة */
+    --text-muted: #5c6bc0; /* نصوص ثانوية زرقاء هادئة */
+    
     --font-cairo: 'Cairo', sans-serif;
     --font-tajawal: 'Tajawal', sans-serif;
     --font-ibm: 'IBM Plex Sans Arabic', sans-serif;
@@ -30,7 +36,7 @@ body {
     font-family: var(--font-tajawal);
     overflow-x: hidden;
     min-height: 100vh;
-    padding-bottom: 80px; /* Account for mobile navbar */
+    padding-bottom: 100px; /* مساحة إضافية مريحة للـ Navbar السفلي الزر الدائري */
 }
 
 /* Scrollbar Customization */
@@ -41,11 +47,11 @@ body {
     background: var(--bg-main);
 }
 ::-webkit-scrollbar-thumb {
-    background: var(--primary-deep);
+    background: #bde0fe;
     border-radius: 4px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--primary-emerald);
+    background: var(--primary-deep);
 }
 
 /* Ambient Visual Effects */
@@ -55,7 +61,7 @@ body {
     left: -10%;
     width: 60vw;
     height: 60vh;
-    background: radial-gradient(circle, rgba(45,106,79,0.15) 0%, rgba(0,0,0,0) 70%);
+    background: radial-gradient(circle, rgba(189,224,254,0.4) 0%, rgba(0,0,0,0) 70%);
     z-index: -2;
     pointer-events: none;
 }
@@ -68,7 +74,7 @@ body {
     height: 100%;
     z-index: -1;
     pointer-events: none;
-    opacity: 0.4;
+    opacity: 0.6;
 }
 
 /* Splash Screen CSS */
@@ -78,7 +84,7 @@ body {
     left: 0;
     width: 100%;
     height: 100%;
-    background: #000;
+    background: #e3f2fd;
     z-index: 9999;
     display: flex;
     justify-content: center;
@@ -97,8 +103,7 @@ body {
 
 .splash-logo {
     font-size: 4rem;
-    color: var(--gold);
-    text-shadow: 0 0 30px var(--gold-glow);
+    color: var(--primary-deep);
     animation: float 3s ease-in-out infinite;
     margin-bottom: 20px;
 }
@@ -109,7 +114,7 @@ body {
     font-weight: 700;
     letter-spacing: 1px;
     margin-bottom: 8px;
-    background: linear-gradient(135deg, #FFFFFF 0%, var(--gold) 100%);
+    background: linear-gradient(135deg, var(--text-white) 0%, var(--primary-deep) 100%);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -122,8 +127,8 @@ body {
 
 .loader-bar {
     width: 200px;
-    height: 3px;
-    background: rgba(255,255,255,0.05);
+    height: 4px;
+    background: rgba(0,0,0,0.05);
     border-radius: 4px;
     margin: 0 auto;
     overflow: hidden;
@@ -137,17 +142,16 @@ body {
     top: 0;
     height: 100%;
     width: 0;
-    background: linear-gradient(90deg, var(--primary-emerald), var(--gold));
-    box-shadow: 0 0 10px var(--primary-glow);
+    background: linear-gradient(90deg, var(--primary-deep), var(--primary-emerald));
     animation: progressLoad 2s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
 }
 
 /* Premium Header Area */
 .main-header {
-    background: var(--bg-glass);
+    background: rgba(227, 242, 253, 0.8);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-bottom: 1px solid var(--border-glass);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.5);
     position: sticky;
     top: 0;
     z-index: 100;
@@ -170,11 +174,11 @@ body {
     font-family: var(--font-cairo);
     font-size: 1.6rem;
     font-weight: 700;
+    color: var(--primary-deep);
 }
 
 .gold-text {
-    color: var(--gold);
-    text-shadow: 0 0 10px var(--gold-glow);
+    color: var(--primary-deep);
 }
 
 .search-bar-container {
@@ -195,29 +199,30 @@ body {
 #search-input {
     width: 100%;
     padding: 12px 45px 12px 20px;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.08);
+    background: var(--bg-surface);
+    border: 1px solid rgba(0, 0, 0, 0.05);
     border-radius: 30px;
     color: var(--text-white);
     font-family: var(--font-tajawal);
     font-size: 0.95rem;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     transition: var(--transition-smooth);
 }
 
 #search-input:focus {
     outline: none;
-    background: rgba(255, 255, 255, 0.06);
-    border-color: var(--primary-emerald);
-    box-shadow: 0 0 15px rgba(45, 106, 79, 0.25);
+    background: var(--bg-surface);
+    border-color: var(--primary-deep);
+    box-shadow: 0 8px 20px rgba(2, 136, 209, 0.15);
 }
 
 #search-input:focus + .search-icon {
-    color: var(--primary-glow);
+    color: var(--primary-deep);
 }
 
 .stat-badge {
-    background: rgba(212, 175, 55, 0.08);
-    border: 1px solid rgba(212, 175, 55, 0.2);
+    background: var(--bg-surface);
+    border: 1px solid rgba(0,0,0,0.05);
     padding: 8px 18px;
     border-radius: 20px;
     font-family: var(--font-ibm);
@@ -225,6 +230,30 @@ body {
     display: flex;
     align-items: center;
     gap: 8px;
+    color: var(--primary-deep);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+}
+
+/* تنسيق زر الإشعارات الذكية المتناسق في الهيدر */
+.notification-badge {
+    background: var(--bg-surface);
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    color: var(--text-muted);
+    cursor: pointer;
+    transition: var(--transition-smooth);
+    margin-left: 8px; /* مسافة مريحة بين الجرس والستريك */
+}
+
+.notification-badge:hover {
+    border-color: var(--primary-deep);
+    color: var(--primary-deep);
+    transform: translateY(-2px);
+}
+
+/* التوهج البرتقالي الدافئ للأيقونة عند التفعيل بنجاح */
+.gold-text {
+    color: #f57c00 !important; 
+    text-shadow: 0 0 10px rgba(245, 124, 0, 0.3);
 }
 
 /* Dashboard Layout */
@@ -237,19 +266,19 @@ body {
 /* Hero Section Styles */
 .hero-section {
     position: relative;
-    background: linear-gradient(135deg, #0d2218 0%, #111111 100%);
-    border: 1px solid var(--border-glass);
-    border-radius: 24px;
+    background: linear-gradient(135deg, #bde0fe 0%, #e3f2fd 100%);
+    border: 1px solid rgba(255, 255, 255, 0.7);
+    border-radius: 28px;
     padding: 40px;
     margin-bottom: 40px;
     overflow: hidden;
-    box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+    box-shadow: 0 15px 35px rgba(2, 136, 209, 0.06);
 }
 
 .hero-overlay {
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: radial-gradient(circle at 80% 20%, rgba(214, 175, 55, 0.05) 0%, transparent 50%);
+    background: radial-gradient(circle at 80% 20%, rgba(255, 255, 255, 0.4) 0%, transparent 60%);
 }
 
 .hero-content {
@@ -259,15 +288,16 @@ body {
 }
 
 .hero-tag {
-    color: var(--gold);
+    color: var(--primary-deep);
     font-size: 0.85rem;
     text-transform: uppercase;
-    letter-spacing: 2px;
+    letter-spacing: 1px;
     font-weight: 700;
     display: inline-block;
     margin-bottom: 15px;
-    border-bottom: 2px solid var(--gold);
-    padding-bottom: 4px;
+    background: rgba(2, 136, 209, 0.08);
+    padding: 4px 12px;
+    border-radius: 8px;
 }
 
 .hero-quote {
@@ -275,8 +305,8 @@ body {
     font-size: 1.8rem;
     line-height: 1.6;
     margin-bottom: 30px;
-    font-weight: 600;
-    color: #e2e8f0;
+    font-weight: 700;
+    color: var(--text-white);
 }
 
 /* Global Progress Tracker */
@@ -293,16 +323,15 @@ body {
 
 .progress-bar-container {
     width: 100%;
-    height: 6px;
-    background: rgba(255,255,255,0.05);
+    height: 8px;
+    background: rgba(0,0,0,0.04);
     border-radius: 10px;
     overflow: hidden;
 }
 
 .global-progress-bar {
     height: 100%;
-    background: linear-gradient(90deg, var(--primary-emerald), var(--primary-glow));
-    box-shadow: 0 0 10px var(--primary-glow);
+    background: linear-gradient(90deg, var(--primary-deep), var(--primary-emerald));
     transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -313,41 +342,42 @@ body {
     overflow-x: auto;
     padding-bottom: 15px;
     margin-bottom: 30px;
-    scrollbar-width: none; /* Hide scrollbar Firefox */
+    scrollbar-width: none;
 }
 
 .category-tabs::-webkit-scrollbar {
-    display: none; /* Hide scrollbar Chrome/Safari */
+    display: none;
 }
 
 .tab-btn {
     background: var(--bg-surface);
-    border: 1px solid rgba(255,255,255,0.05);
+    border: 1px solid rgba(0,0,0,0.04);
     color: var(--text-muted);
     padding: 10px 24px;
     border-radius: 30px;
     cursor: pointer;
     font-family: var(--font-tajawal);
     font-size: 0.95rem;
-    font-weight: 500;
+    font-weight: 600;
     white-space: nowrap;
     display: flex;
     align-items: center;
     gap: 8px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.02);
     transition: var(--transition-smooth);
 }
 
 .tab-btn:hover {
-    background: rgba(255,255,255,0.03);
-    border-color: rgba(255,255,255,0.15);
-    color: var(--text-white);
+    background: var(--bg-surface);
+    border-color: var(--primary-deep);
+    color: var(--primary-deep);
 }
 
 .tab-btn.active {
     background: var(--primary-deep);
-    border-color: var(--primary-emerald);
-    color: var(--text-white);
-    box-shadow: 0 10px 20px rgba(27, 67, 50, 0.3);
+    border-color: var(--primary-deep);
+    color: #ffffff;
+    box-shadow: 0 8px 20px rgba(2, 136, 209, 0.25);
 }
 
 /* Azkar Cards Engine Styles Grid */
@@ -357,13 +387,11 @@ body {
     gap: 25px;
 }
 
-/* Premium Glassmorphism Card Style */
+/* Premium Soft Card Style (نفس تصميم تطبيق سكينة الفاتح الفاخر) */
 .zekr-card {
     background: var(--bg-glass);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 24px;
+    border: 1.5px solid rgba(46, 125, 50, 0.12); /* حدود خضراء ناعمة جداً تلف الكارت زي المرجع */
+    border-radius: 26px; /* زوايا دائرية ناعمة تماماً */
     padding: 30px;
     position: relative;
     display: flex;
@@ -371,21 +399,22 @@ body {
     justify-content: space-between;
     min-height: 280px;
     overflow: hidden;
-    transition: border-color 0.4s, transform 0.4s, box-shadow 0.4s;
+    box-shadow: 0 10px 25px rgba(2, 136, 209, 0.03); /* ظلال انسيابية خفيفة */
+    transition: var(--transition-smooth);
 }
 
 .zekr-card::before {
     content: '';
     position: absolute;
     top: 0; left: 0; width: 100%; height: 100%;
-    background: linear-gradient(130deg, rgba(255,255,255,0.02) 0%, transparent 60%);
+    background: linear-gradient(130deg, rgba(255,255,255,0.8) 0%, transparent 60%);
     pointer-events: none;
 }
 
 .zekr-card:hover {
-    transform: translateY(-5px);
-    border-color: var(--border-glass);
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.6), 0 0 25px rgba(214, 175, 55, 0.03);
+    transform: translateY(-4px);
+    border-color: rgba(46, 125, 50, 0.3);
+    box-shadow: 0 16px 35px rgba(2, 136, 209, 0.08);
 }
 
 /* Card Header Configuration */
@@ -398,13 +427,13 @@ body {
 }
 
 .category-badge {
-    background: rgba(45, 106, 79, 0.15);
-    border: 1px solid rgba(45, 106, 79, 0.3);
-    color: var(--primary-glow);
-    font-size: 0.8rem;
-    padding: 4px 12px;
-    border-radius: 12px;
-    font-weight: 600;
+    background: rgba(2, 136, 209, 0.06);
+    border: 1px solid rgba(2, 136, 209, 0.15);
+    color: var(--primary-deep);
+    font-size: 0.85rem;
+    padding: 5px 14px;
+    border-radius: 14px;
+    font-weight: 700;
 }
 
 .actions-cluster {
@@ -413,11 +442,11 @@ body {
 }
 
 .action-btn {
-    background: rgba(255,255,255,0.03);
-    border: 1px solid rgba(255,255,255,0.05);
+    background: #f5f5f5;
+    border: 1px solid rgba(0, 0, 0, 0.03);
     color: var(--text-muted);
-    width: 36px;
-    height: 36px;
+    width: 38px;
+    height: 38px;
     border-radius: 50%;
     display: flex;
     justify-content: center;
@@ -427,34 +456,36 @@ body {
 }
 
 .action-btn:hover {
-    background: rgba(255,255,255,0.08);
+    background: #e0e0e0;
     color: var(--text-white);
 }
 
 .action-btn.fav-active {
-    color: var(--gold);
-    background: rgba(214, 175, 55, 0.1);
-    border-color: rgba(214, 175, 55, 0.3);
+    color: #e65100;
+    background: #ffe0b2;
+    border-color: #ffb74d;
 }
 
-/* Main Text Typography styling */
+/* Main Text Typography styling (نفس خط وتنسيق الأذكار في سكينة) */
 .zekr-main-text {
-    font-family: var(--font-cairo);
-    font-size: 1.25rem;
-    line-height: 1.8;
-    color: #f8fafc;
-    text-align: justify;
+    font-family: var(--font-tajawal);
+    font-size: 1.4rem; /* تكبير الخط نسبياً لسهولة القراءة والراحة */
+    line-height: 1.9;
+    color: #1a237e; /* أزرق داكن صريح للقراءة المريحة */
+    text-align: center; /* سنتره النص تعطي نفس مظهر تطبيق سكينة */
     margin-bottom: 20px;
-    font-weight: 500;
+    font-weight: 700;
 }
 
 .zekr-description {
-    font-size: 0.88rem;
+    font-size: 0.95rem;
     color: var(--text-muted);
-    line-height: 1.6;
+    line-height: 1.7;
     margin-bottom: 25px;
-    border-right: 2px solid var(--primary-deep);
-    padding-right: 10px;
+    background: #f8fafc; /* خلفية ناعمة منفصلة للوصف والحديث مثل الصورة */
+    padding: 12px 16px;
+    border-radius: 16px;
+    text-align: center;
 }
 
 /* Luxury Interactive Ring System Dashboard & Counter */
@@ -464,32 +495,34 @@ body {
     align-items: center;
     margin-top: auto;
     padding-top: 15px;
-    border-top: 1px solid rgba(255,255,255,0.03);
+    border-top: 1px solid rgba(0,0,0,0.03);
 }
 
+/* الـ Counter الدائري الكبير المريح في الأسفل للتسبيح */
 .counter-interactive-wrapper {
     position: relative;
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
     cursor: pointer;
 }
 
 .svg-ring-container {
     transform: rotate(-90deg);
-    width: 75px;
-    height: 75px;
+    width: 70px;
+    height: 70px;
 }
 
 .ring-track {
     fill: none;
-    stroke: rgba(255, 255, 255, 0.04);
-    stroke-width: 5;
+    stroke: rgba(0, 0, 0, 0.03);
+    stroke-width: 6;
 }
 
+/* تعديل الزر ليتحول إلى الأخضر الزاهي النظيف عند التفاعل مثل المرجعية */
 .ring-fill {
     fill: none;
-    stroke: linear-gradient(to right, var(--gold), var(--primary-emerald));
-    stroke-width: 5;
+    stroke: #00c853; 
+    stroke-width: 6;
     stroke-linecap: round;
     transition: stroke-dashoffset 0.35s cubic-bezier(0.4, 0, 0.2, 1);
 }
@@ -500,35 +533,31 @@ body {
     left: 50%;
     transform: translate(-50%, -50%);
     font-family: var(--font-ibm);
-    font-size: 1.35rem;
+    font-size: 1.4rem;
     font-weight: 700;
-    color: var(--gold);
+    color: #00c853;
     transition: var(--transition-smooth);
 }
 
-/* Finished Complete State styling overrides */
+/* حالة الاكتمال التام للكارت */
 .zekr-card.completed-state {
-    border-color: rgba(45, 106, 79, 0.4);
-    background: linear-gradient(135deg, rgba(17,17,17,0.85) 0%, rgba(27,67,50,0.08) 100%);
-}
-
-.zekr-card.completed-state .ring-fill {
-    stroke: var(--primary-emerald);
+    border-color: var(--border-completed);
+    background: var(--bg-glass-completed);
 }
 
 .zekr-card.completed-state .counter-digit-display {
-    color: var(--primary-glow);
-    font-size: 1.2rem;
+    color: var(--primary-emerald);
 }
 
 .target-badge-hint {
-    font-size: 0.8rem;
+    font-size: 0.85rem;
     color: var(--text-muted);
     font-family: var(--font-ibm);
-    background: rgba(255,255,255,0.02);
+    background: #f1f5f9;
     padding: 6px 14px;
     border-radius: 20px;
-    border: 1px solid rgba(255,255,255,0.05);
+    font-weight: 600;
+    border: 1px solid rgba(0,0,0,0.03);
 }
 
 /* General Animations Utility */
@@ -548,18 +577,32 @@ body {
 
 @keyframes pulse {
     0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.7; transform: scale(1.08); }
+    50% { opacity: 0.7; transform: scale(1.05); }
 }
 
 /* Footers */
 .luxury-footer {
     text-align: center;
     padding: 40px 20px;
-    color: var(--text-muted);
-    font-size: 0.9rem;
-    border-top: 1px solid var(--border-glass);
+    border-top: 1px solid rgba(0,0,0,0.04);
     margin-top: 60px;
-    background: var(--bg-surface);
+    background: #ffffff;
+}
+
+/* تنسيق خاص ومميز لعبارة الصدقة الجارية في الفوتر */
+.footer-charity {
+    font-size: 1.25rem !important; /* تكبير حجم الخط بشكل واضح */
+    font-weight: 700 !important; /* جعل الخط عريض ومميز */
+    color: #2e7d32 !important; /* لون أخضر عشبي ملكي زاهي مريح ومميز للعين */
+    margin-bottom: 12px;
+    letter-spacing: 0.5px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.05); /* ظل خفيف جداً لإبراز الكلمات */
+}
+
+.footer-copyright {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    opacity: 0.8;
 }
 
 /* Mobile Floating Bar Controls Menu */
@@ -569,15 +612,16 @@ body {
     bottom: 0;
     left: 0;
     width: 100%;
-    height: 70px;
-    background: rgba(17, 17, 17, 0.9);
+    height: 75px;
+    background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(20px);
     -webkit-backdrop-filter: blur(20px);
-    border-top: 1px solid var(--border-glass);
+    border-top: 1px solid rgba(0,0,0,0.04);
     z-index: 999;
     justify-content: space-around;
     align-items: center;
     padding: 0 10px;
+    box-shadow: 0 -10px 30px rgba(0,0,0,0.03);
 }
 
 .mobile-nav-btn {
@@ -589,7 +633,8 @@ body {
     align-items: center;
     justify-content: center;
     font-family: var(--font-tajawal);
-    font-size: 0.75rem;
+    font-size: 0.8rem;
+    font-weight: 600;
     gap: 4px;
     cursor: pointer;
     width: 60px;
@@ -598,12 +643,11 @@ body {
 }
 
 .mobile-nav-btn i {
-    font-size: 1.25rem;
+    font-size: 1.35rem;
 }
 
 .mobile-nav-btn.active {
-    color: var(--gold);
-    text-shadow: 0 0 10px var(--gold-glow);
+    color: var(--primary-deep);
 }
 
 /* Initial Empty Loader */
@@ -615,7 +659,7 @@ body {
 }
 .initial-loading i {
     font-size: 2.5rem;
-    color: var(--primary-glow);
+    color: var(--primary-deep);
     margin-bottom: 15px;
 }
 
@@ -628,13 +672,13 @@ body {
 
 @media (max-width: 768px) {
     body {
-        padding-bottom: 90px;
+        padding-bottom: 100px;
     }
     .header-container {
         padding: 12px 20px;
     }
     .brand-name, .header-stats {
-        display: none; /* Streamline mobile display metrics view */
+        display: none;
     }
     .search-bar-container {
         max-width: 100%;
@@ -645,7 +689,7 @@ body {
     }
     .hero-section {
         padding: 25px;
-        border-radius: 16px;
+        border-radius: 20px;
     }
     .hero-quote {
         font-size: 1.35rem;
@@ -655,7 +699,7 @@ body {
         gap: 16px;
     }
     .zekr-card {
-        padding: 20px;
+        padding: 24px;
         min-height: auto;
     }
     .mobile-navbar {
